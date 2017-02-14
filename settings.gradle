@@ -15,5 +15,7 @@
  */
 
 include 'preferences'
+include 'preferences-annotations'
+include 'preferences-compiler'
 include 'preferences-gradle-plugin'
 include 'demo'
