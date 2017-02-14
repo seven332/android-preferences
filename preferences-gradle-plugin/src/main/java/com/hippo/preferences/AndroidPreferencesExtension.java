@@ -20,12 +20,10 @@ package com.hippo.preferences;
  * Created by Hippo on 2/14/2017.
  */
 
-import com.android.annotations.NonNull;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class AndroidPreferencesExtension {
 
@@ -35,7 +33,11 @@ public class AndroidPreferencesExtension {
     return ImmutableList.copyOf(preferences);
   }
 
-  public void setPreferences(@NonNull Iterable<Preference> preferenceIterable) {
-    preferences = Arrays.asList(Iterables.toArray(preferenceIterable, Preference.class));
+  public void preference(Map<String, String> map) {
+    String from = map.get("from");
+    String to = map.get("to");
+    if (from != null && to != null) {
+      preferences.add(new Preference(from, to));
+    }
   }
 }

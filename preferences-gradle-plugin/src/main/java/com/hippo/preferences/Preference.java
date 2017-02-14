@@ -20,10 +20,15 @@ package com.hippo.preferences;
  * Created by Hippo on 2/14/2017.
  */
 
-public class Preference {
+class Preference {
 
   private String from;
   private String to;
+
+  public Preference(String from, String to) {
+    this.from = from;
+    this.to = to;
+  }
 
   public String getFrom() {
     return from;
