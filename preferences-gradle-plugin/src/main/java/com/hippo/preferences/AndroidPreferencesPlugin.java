@@ -35,10 +35,12 @@ import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
-public class PreferencesPlugin implements Plugin<Project> {
+public class AndroidPreferencesPlugin implements Plugin<Project> {
 
   @Override
   public void apply(final Project project) {
+    project.getExtensions().create("androidPreferences", AndroidPreferencesExtension.class);
+
     if (project.getPlugins().hasPlugin(AppPlugin.class)) {
       AppExtension android = project.getExtensions().getByType(AppExtension.class);
       android.getApplicationVariants().all(new Action<ApplicationVariant>() {
@@ -63,7 +65,7 @@ public class PreferencesPlugin implements Plugin<Project> {
     File outputDir = project.file(
         project.getBuildDir() + "/generated/source/preferences/" + variant.getName());
 
-    PreferencesTask task = project.getTasks().create(taskName, PreferencesTask.class);
+    AndroidPreferencesTask task = project.getTasks().create(taskName, AndroidPreferencesTask.class);
     task.setOutputDir(outputDir);
     task.setSourceDirs(sourceDirs(variant));
 

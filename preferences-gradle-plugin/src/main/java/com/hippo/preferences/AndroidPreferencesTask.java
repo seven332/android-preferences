@@ -25,7 +25,7 @@ import java.util.Collection;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.TaskAction;
 
-public class PreferencesTask extends DefaultTask {
+public class AndroidPreferencesTask extends DefaultTask {
 
   private File outputDir;
   private Collection<File> sourceDirs;
@@ -40,6 +40,13 @@ public class PreferencesTask extends DefaultTask {
 
   @TaskAction
   public void generate() {
+    AndroidPreferencesExtension extension =
+        getProject().getExtensions().findByType(AndroidPreferencesExtension.class);
+    if (extension == null) {
+      System.out.println("No preferences");
+      return;
+    }
+
     if (outputDir == null) {
       System.err.println("No output dictionary for PreferencesTask.");
       return;
@@ -50,5 +57,6 @@ public class PreferencesTask extends DefaultTask {
 
     System.out.println(outputDir);
     System.out.println(sourceDirs);
+    System.out.println(extension.getPreferences());
   }
 }
