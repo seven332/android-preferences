@@ -21,7 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'com.github.seven332:android-preferences:0.1.0'
+        classpath 'com.github.seven332:android-preferences:d3b4de790e'
     }
 }
 
