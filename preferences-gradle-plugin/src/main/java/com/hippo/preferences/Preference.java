@@ -20,22 +20,29 @@ package com.hippo.preferences;
  * Created by Hippo on 2/14/2017.
  */
 
-import com.android.annotations.NonNull;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import java.util.Arrays;
-import java.util.List;
+public class Preference {
 
-public class AndroidPreferencesExtension {
+  private String from;
+  private String to;
 
-  private List<Preference> preferences = Lists.newArrayList();
-
-  public List<Preference> getPreferences() {
-    return ImmutableList.copyOf(preferences);
+  public String getFrom() {
+    return from;
   }
 
-  public void setPreferences(@NonNull Iterable<Preference> preferenceIterable) {
-    preferences = Arrays.asList(Iterables.toArray(preferenceIterable, Preference.class));
+  public void setFrom(String from) {
+    this.from = from;
+  }
+
+  public String getTo() {
+    return to;
+  }
+
+  public void setTo(String to) {
+    this.to = to;
+  }
+
+  @Override
+  public String toString() {
+    return "from=" + from + ", to=" + to;
   }
 }
