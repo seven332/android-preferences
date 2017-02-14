@@ -100,9 +100,17 @@ public class AndroidPreferencesCompiler {
       addAccess(outClass, annotations, "decimalIntItems", int.class, putPrefix, "putDecimalInt", getPrefix, "getDecimalInt");
     }
 
+    ensureDir(out.getParentFile());
+
     FileWriter fileWriter = new FileWriter(out);
     fileWriter.write(outClass.toString());
     fileWriter.close();
+  }
+
+  private static void ensureDir(File file) throws IOException {
+    if (!file.isDirectory() && !file.mkdirs()) {
+      throw new IOException("Can't create dir: " + file);
+    }
   }
 
   // Return a String array of package and simple name
