@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: "groovy"
+apply plugin: "java"
 apply plugin: "maven"
 
 sourceCompatibility = 1.7
@@ -35,6 +35,7 @@ repositories {
 
 dependencies {
     compile gradleApi()
+    compile project(':preferences-compiler')
     compileOnly 'com.android.tools.build:gradle:2.2.3'
     testCompile 'junit:junit:4.12'
 }

@@ -21,6 +21,7 @@ package com.hippo.preferences;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.TaskAction;
@@ -55,8 +56,43 @@ public class AndroidPreferencesTask extends DefaultTask {
       System.err.println("No source dictionaries for PreferencesTask.");
     }
 
-    System.out.println(outputDir);
-    System.out.println(sourceDirs);
-    System.out.println(extension.getPreferences());
+    for (Preference p: extension.getPreferences()) {
+      generatePreference(p);
+    }
+  }
+
+  private String filePathPart(String raw) {
+    return raw.replace('.', File.separatorChar) + ".java";
+  }
+
+  private File findInputFile(String p) {
+    File f;
+    for (File d: sourceDirs) {
+      f = new File(d, p);
+      if (f.isFile()) {
+        return f;
+      }
+    }
+
+    return null;
+  }
+
+  private void generatePreference(Preference p) {
+    String fromPart = filePathPart(p.getFrom());
+    String toPart = filePathPart(p.getTo());
+    File from = findInputFile(fromPart);
+    File to = new File(outputDir, toPart);
+
+    if (from == null) {
+      System.err.println("Can't find java class source file:" + p.getFrom());
+      return;
+    }
+
+    try {
+      AndroidPreferencesCompiler.compile(from, to, p.getTo());
+    } catch (IOException e) {
+      System.err.println("Can't compile preferences, from = " + p.getFrom() + ", to = " + p.getTo());
+      e.printStackTrace();
+    }
   }
 }
