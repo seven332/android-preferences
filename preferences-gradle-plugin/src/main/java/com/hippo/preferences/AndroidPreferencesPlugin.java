@@ -30,6 +30,7 @@ import com.android.builder.model.SourceProvider;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
@@ -77,6 +78,8 @@ public class AndroidPreferencesPlugin implements Plugin<Project> {
     for (SourceProvider source: variant.getSourceSets()) {
       dir.addAll(source.getJavaDirectories());
     }
+    // Let earlier items override later items
+    Collections.reverse(dir);
     return dir;
   }
 
