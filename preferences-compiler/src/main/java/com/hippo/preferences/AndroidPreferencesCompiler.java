@@ -27,13 +27,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import org.jboss.forge.roaster.Roaster;
+import org.jboss.forge.roaster._shade.org.eclipse.jdt.core.JavaCore;
+import org.jboss.forge.roaster._shade.org.eclipse.jdt.core.formatter.DefaultCodeFormatterConstants;
+import org.jboss.forge.roaster._shade.org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.jboss.forge.roaster.model.Annotation;
 import org.jboss.forge.roaster.model.Type;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.ParameterSource;
+import org.jboss.forge.roaster.model.util.Formatter;
 import org.jboss.forge.roaster.model.util.Types;
 
 public class AndroidPreferencesCompiler {
@@ -105,9 +110,22 @@ public class AndroidPreferencesCompiler {
 
     ensureDir(out.getParentFile());
 
+    String classString = Formatter.format(outputConfig(), outClass.toUnformattedString());
+
     FileWriter fileWriter = new FileWriter(out);
-    fileWriter.write(outClass.toString());
+    fileWriter.write(classString);
     fileWriter.close();
+  }
+
+  private static Properties outputConfig() {
+    Properties properties = new Properties();
+    properties.setProperty(JavaCore.COMPILER_SOURCE, CompilerOptions.VERSION_1_8);
+    properties.setProperty(JavaCore.COMPILER_COMPLIANCE, CompilerOptions.VERSION_1_8);
+    properties.setProperty(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, CompilerOptions.VERSION_1_8);
+    // ROASTER-96: Add a blank line after imports. "1" is equivalent to TRUE in the formatter XML file
+    properties.setProperty(DefaultCodeFormatterConstants.FORMATTER_BLANK_LINES_AFTER_IMPORTS, "1");
+    properties.setProperty(DefaultCodeFormatterConstants.FORMATTER_TAB_CHAR, JavaCore.SPACE);
+    return properties;
   }
 
   private static void ensureDir(File file) throws IOException {
