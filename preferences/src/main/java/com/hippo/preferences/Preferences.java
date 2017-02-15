@@ -21,7 +21,6 @@ package com.hippo.preferences;
  */
 
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 /**
@@ -36,7 +35,10 @@ public abstract class Preferences {
 
   private SharedPreferences shardPref;
 
-  public Preferences(@NonNull SharedPreferences shardPref) {
+  public Preferences(SharedPreferences shardPref) {
+    if (shardPref == null) {
+      throw new IllegalStateException("shardPref == null");
+    }
     this.shardPref = shardPref;
   }
 
