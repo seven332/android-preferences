@@ -24,7 +24,6 @@ import static org.junit.Assert.assertEquals;
 
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,7 +132,7 @@ public class PreferencesTest {
   }
 
   private static class RealPreferences extends Preferences {
-    public RealPreferences(@NonNull SharedPreferences shardPref) {
+    public RealPreferences(SharedPreferences shardPref) {
       super(shardPref);
     }
   }

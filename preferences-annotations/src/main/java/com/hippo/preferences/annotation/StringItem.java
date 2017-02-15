@@ -30,5 +30,5 @@ import java.lang.annotation.Target;
 public @interface StringItem {
   String name() default "";
   String key();
-  String defValue();
+  String[] defValue();
 }

@@ -51,6 +51,8 @@ import java.util.concurrent.locks.Lock;
     },
     stringItems = {
         @StringItem(key = "string_ha_ha", defValue = "ha ha"),
+        @StringItem(key = "string_xi_xi", defValue = {}),
+        @StringItem(key = "string_xa_xa", defValue = {"xa xa", "xi xi"}),
         @StringItem(name = "STRING_HAHA", key = "string_he_he", defValue = "he he"),
     },
     decimalIntItems = {

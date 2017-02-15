@@ -24,8 +24,11 @@ import com.hippo.preferences.annotation.Items;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.jboss.forge.roaster.Roaster;
+import org.jboss.forge.roaster.model.Annotation;
 import org.jboss.forge.roaster.model.Type;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
@@ -154,7 +157,7 @@ public class AndroidPreferencesCompiler {
   private static GeneralItem parseItem(AnnotationSource<JavaClassSource> item) {
     String name = item.getStringValue("name");
     String key = item.getStringValue("key");
-    String value = item.getLiteralValue("defValue");
+    String value = getDefValue(item);
 
     if (isEmpty(key) || isEmpty(value)) {
       return null;
@@ -169,6 +172,29 @@ public class AndroidPreferencesCompiler {
     i.key = key;
     i.value = value;
     return i;
+  }
+
+  private static String getDefValue(Annotation a) {
+    String[] values = getLiteralArrayValue(a, "defValue");
+    // Treat {} as null
+    if (values.length == 0) {
+      return "null";
+    }
+    return values[0];
+  }
+
+  public static String[] getLiteralArrayValue(Annotation a, String name) {
+    final List<String> result = new ArrayList<>();
+    String literalValue = a.getLiteralValue(name);
+    // Remove {}
+    if (literalValue.startsWith("{") && literalValue.endsWith("}")) {
+      literalValue = literalValue.substring(1, literalValue.length() - 1);
+    }
+    if (literalValue.length() == 0) {
+      return new String[] {};
+    }
+    Collections.addAll(result, literalValue.split(","));
+    return result.toArray(new String[result.size()]);
   }
 
   // hello_world_ha_ha -> helloWorldHaHa
