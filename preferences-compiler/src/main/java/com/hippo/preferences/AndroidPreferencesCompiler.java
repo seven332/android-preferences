@@ -220,7 +220,7 @@ public class AndroidPreferencesCompiler {
   // -> sleepFish
   private static String methodName(String prefix, String name) {
     if (isEmpty(prefix)) {
-      return prefix;
+      return name;
     } else {
       return prefix + capitalize(name);
     }
