@@ -22,8 +22,10 @@ package com.hippo.preferences;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import groovy.lang.Closure;
 import java.util.List;
 import java.util.Map;
+import org.gradle.util.ConfigureUtil;
 
 public class AndroidPreferencesExtension {
 
@@ -38,6 +40,14 @@ public class AndroidPreferencesExtension {
     String to = map.get("to");
     if (from != null && to != null) {
       preferences.add(new Preference(from, to));
+    }
+  }
+
+  public void preference(Closure c) {
+    Preference p = new Preference();
+    ConfigureUtil.configure(c, p);
+    if (p.isValid()) {
+      preferences.add(p);
     }
   }
 }

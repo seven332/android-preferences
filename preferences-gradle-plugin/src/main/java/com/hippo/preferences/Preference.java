@@ -20,10 +20,16 @@ package com.hippo.preferences;
  * Created by Hippo on 2/14/2017.
  */
 
-class Preference {
+import groovy.lang.Closure;
+import org.gradle.util.Configurable;
+import org.gradle.util.ConfigureUtil;
+
+class Preference implements Configurable<Preference> {
 
   private String from;
   private String to;
+
+  public Preference() {}
 
   public Preference(String from, String to) {
     this.from = from;
@@ -34,7 +40,7 @@ class Preference {
     return from;
   }
 
-  public void setFrom(String from) {
+  public void from(String from) {
     this.from = from;
   }
 
@@ -42,12 +48,21 @@ class Preference {
     return to;
   }
 
-  public void setTo(String to) {
+  public void to(String to) {
     this.to = to;
+  }
+
+  public boolean isValid() {
+    return from != null && to != null;
   }
 
   @Override
   public String toString() {
     return "from=" + from + ", to=" + to;
+  }
+
+  @Override
+  public Preference configure(Closure closure) {
+    return ConfigureUtil.configureSelf(closure, this);
   }
 }
