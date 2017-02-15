@@ -42,7 +42,14 @@ android {
 }
 
 androidPreferences {
-    preference from: "com.hippo.preferences.demo.TextPreferencesImpl", to: "com.hippo.preferences.demo.TextPreferences"
+    preference (
+            from: 'com.hippo.preferences.demo.TextPreferencesImpl',
+            to: 'com.hippo.preferences.demo.TextPreferencesImpl'
+    )
+    preference (
+            from: 'com.hippo.preferences.demo.DogPreferencesImpl',
+            to: 'com.hippo.preferences.demo.DogPreferences'
+    )
 }
 
 repositories {
