@@ -76,6 +76,14 @@ public class TextPreferencesTest {
     p.putStringHaHa("xi xi");
     assertEquals("xi xi", p.getStringHaHa());
 
+    assertEquals(null, p.getStringXiXi());
+    p.putStringXiXi("xi xi");
+    assertEquals("xi xi", p.getStringXiXi());
+
+    assertEquals("xa xa", p.getStringXaXa());
+    p.putStringXaXa("xi xi");
+    assertEquals("xi xi", p.getStringXaXa());
+
     assertEquals("he he", p.getSTRING_HAHA());
     p.putSTRING_HAHA("xa xa");
     assertEquals("xa xa", p.getSTRING_HAHA());
