@@ -20,7 +20,6 @@ package com.hippo.preferences;
  * Created by Hippo on 2/14/2017.
  */
 
-import com.hippo.preferences.annotation.Items;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -89,7 +88,7 @@ public class AndroidPreferencesCompiler {
     }
 
     // Export annotation
-    AnnotationSource<JavaClassSource> annotations = inClass.getAnnotation(Items.class);
+    AnnotationSource<JavaClassSource> annotations = inClass.getAnnotation("Items");
     if (annotations != null) {
       String getPrefix = annotations.getStringValue("getPrefix");
       String putPrefix = annotations.getStringValue("putPrefix");

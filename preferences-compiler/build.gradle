@@ -34,10 +34,10 @@ repositories {
 }
 
 dependencies {
-    compile project(':preferences-annotations')
     compile 'org.jboss.forge.roaster:roaster-api:2.19.5.Final'
     compile 'org.jboss.forge.roaster:roaster-jdt:2.19.5.Final'
     testCompile 'junit:junit:4.12'
+    testCompile project(':preferences-annotations')
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
